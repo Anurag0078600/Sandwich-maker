@@ -1,0 +1,59 @@
+import pyinputplus as pyip
+Bread = {'wheat': '$2','white': '$3','sourdough':'$5'}
+Protein = {'Chicken':'$7','Turkey': '$10', 'Ham':'$5','tofu':'$4'}
+Cheese = {'cheddar':'$5','Swiss':'$6','mozzarella':'$8'}
+Topping = {'mayo': '$2', 'musturd':'$3','lettuce':'$2','tomato':'$1'}
+cost = []
+while True:
+    Q1 = pyip.inputYesNo(prompt = 'Do you want sandwich \n')
+    if Q1.lower() == 'yes':
+        Q2 = pyip.inputNum(prompt = 'how many sandwich , do you want ? \n', min = 1, blank = True)
+        if Q2 == '':
+            break
+        else:
+            Q3 = pyip.inputBool(prompt = f'you asked for {Q2} sandwich', allowRegexes=[r'(Y|T|N|F)'])
+            if Q3 == 'Y' or Q3 == 'T':
+                Q4 = pyip.inputMenu(['wheat','white','sourdough'])
+                breadPrice = Bread[f'{Q4}']
+                cost.append(breadPrice)
+            else:
+                continue
+            Q5 = pyip.inputYesNo(prompt = 'do you want protein in your sandwich \n')
+            if Q5.lower() == 'yes':
+                Q6 = pyip.inputMenu(['Chicken','Turkey','Ham','tofu'])
+                ProteinPrice = Protein[f'{Q6}']
+                cost.append(ProteinPrice)
+            else:
+                print('okay your sandwich won\'t have any protein item on it')
+            Q7 = pyip.inputYesNo(prompt = 'do you want cheese in your sandwich \n')
+            if Q7.lower() == 'yes':
+                Q8 = pyip.inputMenu(['cheddar','Swiss','mozzarella'])
+                CheesePrice = Cheese[f'{Q8}']
+                cost.append(CheesePrice)
+            else:
+                print('okay your sandwich won\'t have any Cheese item in it')
+            Q9 = pyip.inputYesNo(prompt = 'do you want topping on your sandwich \n')
+            if Q9.lower() == 'yes':
+                Q10 = pyip.inputMenu(['mayo','musturd','lettuce','tomato'])
+                ToppingPrice = Topping[f'{Q10}']
+                cost.append(ToppingPrice)
+            else:
+                print('okay your sandwich won\'t have any Topping  on it')
+            Q11 = pyip.inputYesNo(prompt = 'do you want to add any other item \n')
+            if Q11.lower() == 'yes':
+                continue
+            else:
+                break
+    else:
+        break
+print('Thankyou for stopping by, have a good day :)')
+bill = ''.join(cost)
+Bill = bill.split('$')
+print(Bill)
+for n, item in enumerate(Bill):
+    if Bill[n] == '':
+        Bill[n] = 0
+    else:
+        Bill[n] = int(item)
+TotalBill = (sum(Bill))*Q2
+print(f'$ {TotalBill}')
